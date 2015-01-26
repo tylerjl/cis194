@@ -3,10 +3,9 @@ module Golf where
 import Data.List (sort)
 
 skips :: [a] -> [[a]]
-skips x = f 0 x
-    where f n l@(y:ys) = (g n l) : (f (n+1) ys)
-              where g idx (z:zs) = 
-                    g _ [] = []
+skips = f 1
+    where f n l@(x:xs) = (x : e) : (f (n+1) xs)
+              where e = [l !! x | x <- [1..(length l)-1], x `mod` n == 0]
           f _ [] = []
 
 localMaxima :: [Integer] -> [Integer]

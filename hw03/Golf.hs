@@ -1,6 +1,7 @@
 module Golf where
 
-import Data.List (sort)
+import Data.List (sort, transpose)
+import Data.Function (on)
 
 skips :: [a] -> [[a]]
 skips = f 1
@@ -15,5 +16,8 @@ localMaxima (x:y:z:zs)
 localMaxima _ = []
 
 histogram :: [Integer] -> String
-histogram x = vis x ++ "\n" ++ "==========\n" ++ "0123456789\n"
-    where vis x = "foo"
+histogram x = (unlines . transpose $ (map (vis h s) [0..9])) ++ "\n" ++ f
+    where vis height nums column = if column
+          f = "==========\n" ++ ['0'..'9'] ++ "\n"
+          h = length . maximumBy (compare `on` length) . group . sort $ x
+          s = group . sort $ x

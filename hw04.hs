@@ -23,11 +23,18 @@ data Tree a = Leaf
     deriving (Show, Eq)
 
 foldTree :: [a] -> Tree a
-foldTree = foldr f Leaf
-    where f e (Leaf) = Node 0 Leaf e Leaf
-          f e (Node h Leaf n Leaf)  = Node (h+1) (f e Leaf) n Leaf
-          f e (Node h Leaf n r) = Node h (f e Leaf) n r
-          f e (Node h l n Leaf) = Node h l n (f e Leaf)
-          f e (Node h l@(Node lh _ _ _) n r@(Node rh _ _ _))
-            | lh <= rh  = Node (h+1) (f e l) n r
-            | otherwise = Node (h+1) l n (f e r)
+foldTree = foldr insert Leaf
+
+insert :: a -> Tree a -> Tree a
+insert e Leaf = Node 0 Leaf e Leaf
+insert e n@(Node h l c r)
+    | balanced n = Node (h+1) (insert e l) c r
+    | balanced l = Node h l c (insert e r)
+    | otherwise  = Node h (insert e l) c r
+
+balanced :: Tree a -> Bool
+balanced Leaf = True
+balanced (Node h l _ r) = let e = (treeHeight l == treeHeight r) in
+    e && (balanced l) && (balanced r)
+    where treeHeight Leaf = -1
+          treeHeight (Node h _ _ _) = h

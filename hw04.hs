@@ -38,3 +38,18 @@ balanced (Node h l _ r) = let e = (treeHeight l == treeHeight r) in
     e && (balanced l) && (balanced r)
     where treeHeight Leaf = -1
           treeHeight (Node h _ _ _) = h
+
+-- Exercise 3
+xor :: [Bool] -> Bool
+xor = foldl f False
+    where f True  True  = False
+          f False True  = True
+          f x     False = x
+
+-- Exercise 3.2
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\acc x -> f acc : x) []
+
+-- Exercise 4
+sieveSundaram :: Integer -> [Integer]
+sieveSundaram n = filter odd $ [3..(2*n)+2]

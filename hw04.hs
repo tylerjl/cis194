@@ -52,4 +52,15 @@ map' f = foldr (\acc x -> f acc : x) []
 
 -- Exercise 4
 sieveSundaram :: Integer -> [Integer]
-sieveSundaram n = filter odd $ [3..(2*n)+2]
+sieveSundaram n =
+    let exclusions =
+            map (\(i,j) -> i + j + 2*i*j)
+            $ filter (\(i,j) -> i <= j && i+j+2*i*j <= n)
+            $ cartProd [1..n]
+    in
+            map (\k -> 2*k + 1)
+            $ filter (\x -> x `notElem` exclusions)
+            $ [1..n]
+
+cartProd :: [a] -> [(a, a)]
+cartProd xs = [(x,y) | x <- xs, y <- xs]

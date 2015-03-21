@@ -1,9 +1,11 @@
+{-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
 {-# OPTIONS_GHC -Wall #-}
 
 module Calc where
 
 import ExprT
 import Parser
+import qualified StackVM as StackVM
 
 -- Exercise 1
 eval :: ExprT -> Integer
@@ -27,6 +29,9 @@ instance Expr ExprT where
     lit = Lit
     add = Add
     mul = Mul
+
+reify :: ExprT -> ExprT
+reify = id
 
 -- Exercise 4
 instance Expr Integer where
@@ -62,3 +67,14 @@ testInteger = testExp :: Maybe Integer
 testBool    = testExp :: Maybe Bool
 testMM      = testExp :: Maybe MinMax
 testSat     = testExp :: Maybe Mod7
+
+-- Exercise 5
+instance Expr StackVM.Program where
+    lit i   = [StackVM.PushI i]
+    add x y = x ++ y ++ [StackVM.Add]
+    mul x y = x ++ y ++ [StackVM.Mul]
+
+compile :: String -> Maybe StackVM.Program
+compile s = case parseExp lit add mul s of
+    Nothing -> Nothing
+    Just p  -> Just p

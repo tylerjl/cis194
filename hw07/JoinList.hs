@@ -33,6 +33,7 @@ jlToList (Single _ a)     = [a]
 jlToList (Append _ l1 l2) = jlToList l1 ++ jlToList l2
 
 -- Test JoinList
+yeahTree :: JoinList Size Char
 yeahTree = Append (Size 4)
                (Append (Size 2)
                    (Single (Size 1) 'a')
@@ -55,3 +56,19 @@ indexJ i (Append _ jl1 jl2)
 
 jLSize :: (Monoid m, Sized m) => JoinList m a -> Int
 jLSize = getSize . size . tag
+
+-- .2
+-- TODO: Fix size difference change
+dropJ :: (Sized b, Monoid b) => Int -> JoinList b a -> JoinList b a
+dropJ _ jl@Empty            = jl
+dropJ i jl | i <= 0         = jl
+           | i >= jLSize jl = Empty
+dropJ _ (Single _ _)        = Empty
+dropJ i (Append m jl1 jl2)
+    | i == aSize            = Empty
+    | i <  leftSize         = Append n (dropJ i jl1) jl2
+    | i == leftSize         = Append n Empty jl2
+    | otherwise             = Append n Empty (dropJ (i-leftSize) jl2)
+    where leftSize = jLSize jl1
+          aSize    = getSize . size $ m
+          n        = m <> tag (dropJ i jl1)

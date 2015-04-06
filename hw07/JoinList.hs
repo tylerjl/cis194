@@ -67,3 +67,14 @@ dropJ i (Append _ jll jlr)
     | i <  leftSize         = dropJ i jll +++ jlr
     | otherwise             = dropJ (i-leftSize) jlr
     where leftSize = jLSize jll
+
+-- .3
+takeJ :: (Sized b, Monoid b) => Int -> JoinList b a -> JoinList b a
+takeJ _ (Empty)            = Empty
+takeJ i jl | i <= 0        = Empty
+           | i > jLSize jl = jl
+takeJ _ jl@(Single _ _)    = jl
+takeJ i (Append _ left right)
+    | i >= leftSize        = left +++ takeJ (i-leftSize) right
+    | otherwise            = takeJ i left
+    where leftSize = jLSize left

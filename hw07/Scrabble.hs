@@ -14,6 +14,9 @@ instance Monoid Score where
   mempty  = Score 0
   mappend = (+)
 
+getScore :: Score -> Int
+getScore (Score s) = s
+
 score :: Char -> Score
 score r
     | c `elem` "aeilnorstu" = 1

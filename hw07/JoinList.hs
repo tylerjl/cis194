@@ -2,6 +2,7 @@ module JoinList where
 
 import Data.Monoid
 import Sized
+import Scrabble
 
 data JoinList m a = Empty
                   | Single m a
@@ -78,3 +79,7 @@ takeJ i (Append _ left right)
     | i >= leftSize        = left +++ takeJ (i-leftSize) right
     | otherwise            = takeJ i left
     where leftSize = jLSize left
+
+-- Exercise 3
+scoreLine :: String -> JoinList Score String
+scoreLine s = Single (scoreString s) s

@@ -6,7 +6,6 @@ import Data.Monoid
 import Buffer
 import Sized
 import Scrabble
-import Data.List (foldl')
 
 data JoinList m a = Empty
                   | Single m a
@@ -57,7 +56,7 @@ indexJ _ (Single _ _)       = Nothing
 indexJ i (Append _ jl1 jl2)
     | i >= leftSize = indexJ (i-leftSize) jl2
     | otherwise     = indexJ i jl1
-    where leftSize = jLSize jl2
+    where leftSize = jLSize jl1
 
 jLSize :: (Monoid m, Sized m) => JoinList m a -> Int
 jLSize = getSize . size . tag

@@ -27,3 +27,7 @@ spec =
 
             it "should double every other number of an odd list from the right" $
                 doubleEveryOther [1,2,3] `shouldBe` [1,4,3]
+
+        describe "sumDigits" $ do
+            it "should sum all single digits" $
+                sumDigits [16,7,12,5] `shouldBe` 22

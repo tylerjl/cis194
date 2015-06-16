@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Data.List (genericLength)
+import Data.List (genericLength, isInfixOf)
 import Data.Maybe (catMaybes)
 import System.Directory (doesFileExist)
 import System.Exit (exitFailure, exitSuccess)
@@ -24,7 +24,7 @@ main = do
         else putStr output >> exitFailure
 
 match :: String -> [Int]
-match = fmap read . concat . catMaybes . fmap (matchRegex pattern) . lines
+match = fmap read . concat . catMaybes . fmap (matchRegex pattern) . filter (not . isInfixOf "boolean coverage") . lines
   where
     pattern = mkRegex "^ *([0-9]*)% "
 

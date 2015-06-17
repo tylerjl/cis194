@@ -3,9 +3,12 @@ module Cis194.Spring13.HW01
     , toDigitsRev
     , doubleEveryOther
     , sumDigits
+    , validate
+    , hanoi
 ) where
 
 import Data.Monoid
+import Data.List (foldl')
 
 toDigits :: Integer -> [Integer]
 toDigits i | i <= 0    = []
@@ -15,11 +18,21 @@ toDigitsRev :: Integer -> [Integer]
 toDigitsRev = reverse . toDigits
 
 doubleEveryOther :: [Integer] -> [Integer]
-doubleEveryOther []     = []
-doubleEveryOther (x:[]) = [x]
-doubleEveryOther (x:y:ys)
-    | odd (length ys)   = x : y*2 : doubleEveryOther ys
-    | otherwise         = x*2 : y : doubleEveryOther ys
+doubleEveryOther = reverse . zipWith (*) (cycle [1,2]) . reverse
 
 sumDigits :: [Integer] -> Integer
-sumDigits = sum . (=<<) (toDigits)
+sumDigits = foldl' (+) 0 . (=<<) (toDigits)
+
+validate :: Integer -> Bool
+validate = ((==) 0 . flip mod 10) . sumDigits . doubleEveryOther . toDigits
+
+-- Towers of Hanoi
+
+type Peg  = String
+type Move = (Peg, Peg)
+
+hanoi :: Integer -> Peg -> Peg -> Peg -> [Move]
+hanoi 0 _ _ _ = []
+hanoi 1 a b _ = [(a, b)]
+hanoi n a b c = hanoi n' a c b <> hanoi n' a b c <> hanoi n' c b a
+    where n' = n - 1

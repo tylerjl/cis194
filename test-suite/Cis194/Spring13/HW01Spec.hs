@@ -31,3 +31,14 @@ spec =
         describe "sumDigits" $ do
             it "should sum all single digits" $
                 sumDigits [16,7,12,5] `shouldBe` 22
+
+        describe "validate" $ do
+            it "should return True for valid CC numbers" $
+                validate 4012888888881881 `shouldBe` True
+
+            it "should return False for invalid CC numbers" $
+                validate 4012888888881882 `shouldBe` False
+
+        describe "hanoi" $ do
+            it "should solve the puzzle with three pegs" $
+                hanoi 2 "a" "b" "c" `shouldBe` [("a","c"),("a","b"),("c","b")]

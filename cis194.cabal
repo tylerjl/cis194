@@ -40,6 +40,7 @@ library
         Haskell2010
     exposed-modules:
         Cis194
+        Cis194.Spring13.HW01
     ghc-options:
         -Wall
     ghc-prof-options:

@@ -36,11 +36,13 @@ source-repository head
 library
     build-depends:
         base ==4.*
+      , parsec
     default-language:
         Haskell2010
     exposed-modules:
         Cis194
         Cis194.Spring13.HW01
+        Cis194.Spring13.HW02.LogAnalysis
     ghc-options:
         -Wall
     ghc-prof-options:
@@ -53,6 +55,7 @@ executable cis194
     build-depends:
         base
       , cis194
+      , parsec
     default-language:
         Haskell2010
     ghc-prof-options:
@@ -67,6 +70,7 @@ test-suite tests
     build-depends:
         base
       , cis194
+      , parsec
       , hspec ==2.*
         , HUnit
         , QuickCheck
@@ -92,6 +96,7 @@ test-suite tests
 test-suite examples
     build-depends:
         base
+      , parsec
       , Glob ==0.7.*
       , doctest ==0.9.*
     default-language:
@@ -106,6 +111,7 @@ test-suite examples
 test-suite coverage
     build-depends:
         base
+      , parsec
       , directory ==1.*
       , process ==1.*
       , regex-compat >=0.90
@@ -121,6 +127,7 @@ test-suite coverage
 test-suite documentation
     build-depends:
         base
+      , parsec
       , process
       , regex-compat
     default-language:
@@ -135,6 +142,7 @@ test-suite documentation
 test-suite style
     build-depends:
         base
+      , parsec
       , hlint ==1.*
     default-language:
         Haskell2010
@@ -149,6 +157,7 @@ benchmark benchmarks
     build-depends:
         base
       , cis194
+      , parsec
     if impl(ghc >=7.8)
         build-depends:
             criterion ==1.*

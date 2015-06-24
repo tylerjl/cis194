@@ -116,3 +116,11 @@ spec =
                     [(LogMessage (Error 1) 50 "zero"),
                      (LogMessage Info 100 "one"),
                      (LogMessage Warning 150 "two")]
+
+        describe "whatWentWrong" $ do
+            it "should highlight log file errors" $
+                testWhatWentWrong parse whatWentWrong "resources/sample.log" `shouldReturn`
+                    [ "Way too many pickles"
+                    , "Bad pickle-flange interaction detected"
+                    , "Flange failed!"
+                    ]

@@ -24,7 +24,12 @@ main = do
         else putStr output >> exitFailure
 
 match :: String -> [Int]
-match = fmap read . concat . catMaybes . fmap (matchRegex pattern) . filter (not . isInfixOf "boolean coverage") . lines
+match = fmap read
+      . concat
+      . catMaybes
+      . fmap (matchRegex pattern)
+      . filter (not . isInfixOf "boolean coverage")
+      . lines
   where
     pattern = mkRegex "^ *([0-9]*)% "
 

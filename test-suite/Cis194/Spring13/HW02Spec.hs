@@ -53,7 +53,7 @@ spec =
 
         describe "insert" $ do
             it "should not insert Unknown messages" $
-                map (\t -> insert (Unknown "test") t) trees `shouldBe` trees
+                fmap (\t -> insert (Unknown "test") t) trees `shouldBe` trees
 
             it "should insert earlier messages to the left" $
                 insert (LogMessage Info 5 "info") oneTree `shouldBe`

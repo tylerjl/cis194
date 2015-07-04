@@ -1,5 +1,6 @@
 {-# OPTIONS_GHC -Wall #-}
 
+-- |Utitilies for parsing and diagnosing log files
 module Cis194.Spring13.HW02.LogAnalysis
     ( parse
     , parseMessage
@@ -48,12 +49,10 @@ logType = Info             <$  (char 'I')
 timeStamp :: Parser TimeStamp
 timeStamp = read <$> P.many1 digit
 
-{-
- - Insert LogMessage into MessageTree, return resultant MessageTree.
- - Tree should be sorted as a binary search tree.
- - Unknown LogMessage arguments should be ignored, returning the original
- - MessageTree.
- -}
+-- |Insert LogMessage into MessageTree, return resultant MessageTree.
+-- |Tree should be sorted as a binary search tree.
+-- |Unknown LogMessage arguments should be ignored, returning the original
+-- |MessageTree.
 insert :: LogMessage -> MessageTree -> MessageTree
 insert (Unknown _) t                = t
 insert m (Leaf)                     = Node Leaf m Leaf

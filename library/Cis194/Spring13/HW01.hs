@@ -1,3 +1,4 @@
+-- |Simple exercise functions
 module Cis194.Spring13.HW01
     ( toDigits
     , toDigitsRev

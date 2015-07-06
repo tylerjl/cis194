@@ -43,6 +43,7 @@ library
         Cis194
         Cis194.Spring13.HW01
         Cis194.Spring13.HW02.LogAnalysis
+        Cis194.Spring13.HW04
     ghc-options:
         -Wall
     ghc-prof-options:

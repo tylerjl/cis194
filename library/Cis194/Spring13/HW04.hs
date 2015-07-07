@@ -27,15 +27,15 @@ fun2' = sum . filter even . takeWhile (> 1)
       . iterate (\x -> if even x then x `div` 2 else 3 * x + 1)
 
 -- |Geneirc binary tree datatype.
-data Tree a = Leaf
-            | Node Integer (Tree a) a (Tree a)
-    deriving (Show, Eq)
-
+-- data Tree a = Leaf
+--             | Node Integer (Tree a) a (Tree a)
+--     deriving (Show, Eq)
+--
 -- |Generates a balanced binary tree from a list of values using foldr.
-foldTree :: [a] -> Tree a
-foldTree = foldr insertTree Leaf
-
+-- foldTree :: [a] -> Tree a
+-- foldTree = foldr insertTree Leaf
+--
 -- |Insert value into a tree
-insertTree :: a -> Tree a -> Tree a
-insertTree x (Leaf) = Node 0 Leaf x Leaf
-insertTree x (Node ) = Node 0 Leaf x Leaf
+-- insertTree :: a -> Tree a -> Tree a
+-- insertTree x (Leaf) = Node 0 Leaf x Leaf
+-- insertTree x (Node ) = Node 0 Leaf x Leaf

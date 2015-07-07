@@ -42,16 +42,16 @@ spec =
             it "treats large odd values like fun2" $
                 fun2' 101 `shouldBe` fun2 101
 
-        describe "foldTree" $ do
-            it "should fold strings" $
-                foldTree "ABCDEFGHIJ" `shouldBe`
-                    Node 3
-                        (Node 2
-                            (Node 0 Leaf 'F' Leaf)
-                            'I'
-                            (Node 1 (Node 0 Leaf 'B' Leaf) 'C' Leaf))
-                        'J'
-                        (Node 2
-                            (Node 1 (Node 0 Leaf 'A' Leaf) 'G' Leaf)
-                            'H'
-                            (Node 1 (Node 0 Leaf 'D' Leaf) 'E' Leaf))
+        -- describe "foldTree" $ do
+        --     it "should fold strings" $
+        --         foldTree "ABCDEFGHIJ" `shouldBe`
+        --             Node 3
+        --                 (Node 2
+        --                     (Node 0 Leaf 'F' Leaf)
+        --                     'I'
+        --                     (Node 1 (Node 0 Leaf 'B' Leaf) 'C' Leaf))
+        --                 'J'
+        --                 (Node 2
+        --                     (Node 1 (Node 0 Leaf 'A' Leaf) 'G' Leaf)
+        --                     'H'
+        --                     (Node 1 (Node 0 Leaf 'D' Leaf) 'E' Leaf))

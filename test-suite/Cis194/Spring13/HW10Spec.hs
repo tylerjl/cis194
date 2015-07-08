@@ -28,3 +28,13 @@ spec =
         describe "intPair" $ do
             it "parses pairs of integers" $
                 runParser intPair "12 34" `shouldBe` Just ([12,34],"")
+
+        describe "intOrUppercase" $ do
+            it "throws away leading ints" $
+                runParser intOrUppercase "342abcd" `shouldBe` Just ((),"abcd")
+
+            it "throws away leading uppercase characters" $
+                runParser intOrUppercase "XYZ" `shouldBe` Just ((),"YZ")
+
+            it "fails without leading ints or uppercase characters" $
+                runParser intOrUppercase "foo" `shouldBe` Nothing

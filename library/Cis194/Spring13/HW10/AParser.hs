@@ -4,6 +4,8 @@
 
 module Cis194.Spring13.HW10.AParser where
 
+import Control.Applicative
+
 import Data.Char
 
 -- A parser for a value of type a is a function which takes a String
@@ -87,3 +89,15 @@ abParser_ = (\_ _ -> ()) <$> char 'a' <*> char 'b'
 -- |Parses space-separated integer pairs
 intPair :: Parser [Integer]
 intPair = (\x _ z -> [x, z]) <$> posInt <*> char ' ' <*> posInt
+
+-- |Exercise 4
+
+-- |empty represents the parser that always fails, <|> is a parser which
+-- |attempts p1, then alternatively, p2.
+instance Alternative Parser where
+    empty     = Parser (\_ -> Nothing)
+    p1 <|> p2 = Parser (\s -> runParser p1 s <|> runParser p2 s)
+
+-- |Exercise 5
+intOrUppercase :: Parser ()
+intOrUppercase = (\_ -> ()) <$> posInt <|> (\_ -> ()) <$> satisfy isUpper
